@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer Dashboard | Football Analysis</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+   <header class="site-header">
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Football Analysis home">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="analysis.html">Analysis</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="opinions.html">Opinions</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="predictions.html">Predictions</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="icon-btn search-btn" type="button" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <button class="icon-btn dark-mode-btn" type="button" aria-label="Toggle dark mode">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+
+                <button class="menu-btn" type="button" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="profile-dropdown">
+                    <button class="icon-btn profile-btn" type="button" aria-label="Profile">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </button>
+
+                    <div class="profile-menu">
+                        <div class="profile-menu-header">
+                            <i class="fa-regular fa-circle-user"></i>
+                            <div>
+                                <strong>Guest User</strong>
+                                <span>Football Analysis reader</span>
+                            </div>
+                        </div>
+
+                        <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                        <a href="signup.html"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+                        <a href="saved.html"><i class="fa-regular fa-bookmark"></i> Saved Articles</a>
+                        <a href="writer-dashboard.html"><i class="fa-solid fa-pen-nib"></i> Writer Dashboard</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <aside class="mobile-menu">
+        <div class="mobile-menu-top">
+            <a href="../index.html" class="mobile-menu-logo">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+            <button class="close-menu" type="button" aria-label="Close menu">&times;</button>
+        </div>
+
+        <nav class="mobile-menu-links">
+            <a href="../index.html">Home</a>
+            <a href="analysis.html">Analysis</a>
+            <a href="news.html">News</a>
+            <a href="opinions.html">Opinions</a>
+            <a href="history.html">History</a>
+            <a href="predictions.html">Predictions</a>
+        </nav>
+    </aside>
+
+    <div class="search-overlay"></div>
+
+    <section class="search-panel">
+        <form class="search-form">
+            <input type="search" name="q" placeholder="Search news, analysis, transfers..." aria-label="Search">
+            <button type="submit" aria-label="Submit search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="close-search" type="button" aria-label="Close search">&times;</button>
+        </form>
+        <div class="search-results" aria-live="polite"></div>
+    </section>
+
+    <main>
+        <div class="dashboard-header">
+            <div>
+                <h1>Writer Dashboard</h1>
+                <p>Manage your published articles and drafts.</p>
+            </div>
+
+            <div class="dashboard-writer">
+                <img src="../images/picture of me.jpg" alt="George Oyefeso">
+                <div>
+                    <strong>George Oyefeso</strong>
+                    <span>Staff Writer</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fa-solid fa-newspaper"></i>
+                <div class="stat-value" id="statPublished">14</div>
+                <div class="stat-label">Published Articles</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-pen"></i>
+                <div class="stat-value" id="statDrafts">0</div>
+                <div class="stat-label">Drafts In Progress</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-bookmark"></i>
+                <div class="stat-value" id="statSaves">—</div>
+                <div class="stat-label">Bookmarked On This Device</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-tags"></i>
+                <div class="stat-value">6</div>
+                <div class="stat-label">Active Categories</div>
+            </div>
+        </div>
+
+        <section class="dashboard-section">
+            <div class="dashboard-section-title">
+                <div>
+                    <h2>Published Articles</h2>
+                    <p>Everything currently live on Football Analysis.</p>
+                </div>
+                <button type="button" class="dashboard-btn primary" id="newArticleBtn">
+                    <i class="fa-solid fa-plus"></i> New Article
+                </button>
+            </div>
+
+            <div class="articles-table-wrap">
+                <table class="articles-table" id="publishedTable">
+                    <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/Man City.webp" alt="">
+                                    <strong>Five Tactical Lessons From City's Victory</strong>
+                                </div>
+                            </td>
+                            <td><span class="category review">Review</span></td>
+                            <td>Jul 15, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="cityanalysis.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/barcelona club.png" alt="">
+                                    <strong>Why Barcelona's Midfield Dominated Possession</strong>
+                                </div>
+                            </td>
+                            <td><span class="category analysis">Analysis</span></td>
+                            <td>Jun 27, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="barcelonaanalysis.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/pressing.jpg" alt="">
+                                    <strong>How Pressing Has Changed Modern Football</strong>
+                                </div>
+                            </td>
+                            <td><span class="category analysis">Analysis</span></td>
+                            <td>Jun 29, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="pressing.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/pedri.jpg" alt="">
+                                    <strong>Why Pedri Is Barcelona's Most Important Midfielder</strong>
+                                </div>
+                            </td>
+                            <td><span class="category player">Analysis</span></td>
+                            <td>Jul 5, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="article3.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/spain vs france.jpg" alt="">
+                                    <strong>Spain Beat France To Reach World Cup Final</strong>
+                                </div>
+                            </td>
+                            <td><span class="category review">Match Report</span></td>
+                            <td>Jul 15, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="spainvsfrance.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/javi guerra.webp" alt="">
+                                    <strong>Barcelona Prepare Final Offer For Young Midfielder</strong>
+                                </div>
+                            </td>
+                            <td><span class="category news">News</span></td>
+                            <td>Jul 5, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="article.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/nico wiliams.webp" alt="">
+                                    <strong>Nico Williams Reaches Agreement On Personal Terms With Barcelona</strong>
+                                </div>
+                            </td>
+                            <td><span class="category transfer">Transfer</span></td>
+                            <td>Jul 5, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="nicowilliams.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/Julian Alvarez.webp" alt="">
+                                    <strong>Julian Alvarez Still Pushing For Barca Move</strong>
+                                </div>
+                            </td>
+                            <td><span class="category transfer">Transfer</span></td>
+                            <td>Jul 5, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="article2.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/mbappe.jpg" alt="">
+                                    <strong>Are Big Transfers Still Worth The Risk?</strong>
+                                </div>
+                            </td>
+                            <td><span class="category opinion">Opinion</span></td>
+                            <td>Jun 29, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="bigtransfersopinion.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/spain vs netherlands.jpg" alt="">
+                                    <strong>Classic World Cup Matches Every Fan Should Know</strong>
+                                </div>
+                            </td>
+                            <td><span class="category history">History</span></td>
+                            <td>Jul 1, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="classic-world-cup-matches.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/pressing.jpg" alt="">
+                                    <strong>The Tactical Systems That Changed The Game</strong>
+                                </div>
+                            </td>
+                            <td><span class="category history">History</span></td>
+                            <td>Jul 1, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="tactical-systems-changed-game.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/south africa vs canada.avif" alt="">
+                                    <strong>South Africa vs Canada Match Predictions</strong>
+                                </div>
+                            </td>
+                            <td><span class="category prediction">Prediction</span></td>
+                            <td>Jun 28, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="southafricavscanadaprediction.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/portugal.jpg" alt="">
+                                    <strong>Portugal vs Slovakia Match Predictions</strong>
+                                </div>
+                            </td>
+                            <td><span class="category prediction">Prediction</span></td>
+                            <td>Jun 29, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="portugalvsslovakia.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="article-title-cell">
+                                    <img src="../images/englandvssenegal.jpg" alt="">
+                                    <strong>England vs Senegal Match Predictions</strong>
+                                </div>
+                            </td>
+                            <td><span class="category prediction">Prediction</span></td>
+                            <td>Jun 30, 2026</td>
+                            <td><span class="status-pill published"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <div class="row-actions">
+                                    <a href="englandvssenegal.html" target="_blank" rel="noopener" aria-label="View"><i class="fa-solid fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="dashboard-section" id="composerSection" style="display:none;">
+            <div class="dashboard-section-title">
+                <div>
+                    <h2>New Article</h2>
+                    <p>Draft a new piece. Saving here doesn't create a live page — the draft is stored on this device until the full HTML page is built.</p>
+                </div>
+                <button type="button" class="dashboard-btn" id="closeComposerBtn">
+                    <i class="fa-solid fa-xmark"></i> Close
+                </button>
+            </div>
+
+            <div class="composer-field">
+                <label for="draftTitle">Title</label>
+                <input type="text" id="draftTitle" name="draftTitle" placeholder="e.g. Why Arsenal's Back Three Keeps Breaking Down">
+            </div>
+
+            <div class="composer-row">
+                <div class="composer-field">
+                    <label for="draftCategory">Category</label>
+                    <select id="draftCategory" name="draftCategory">
+                        <option value="analysis">Analysis</option>
+                        <option value="news">News</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="opinion">Opinion</option>
+                        <option value="history">History</option>
+                        <option value="prediction">Prediction</option>
+                        <option value="review">Review</option>
+                    </select>
+                </div>
+                <div class="composer-field">
+                    <label for="draftReadTime">Estimated read time</label>
+                    <input type="text" id="draftReadTime" name="draftReadTime" placeholder="e.g. 6 min read">
+                </div>
+            </div>
+
+            <div class="composer-field">
+                <label for="draftExcerpt">Excerpt</label>
+                <textarea id="draftExcerpt" name="draftExcerpt" rows="2" placeholder="One or two sentences that summarise the piece."></textarea>
+            </div>
+
+            <div class="composer-field">
+                <label for="draftBody">Body</label>
+                <textarea id="draftBody" name="draftBody" rows="10" placeholder="Write the article here..."></textarea>
+            </div>
+
+            <div class="composer-actions">
+                <button type="button" class="dashboard-btn primary" id="saveDraftBtn">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Draft
+                </button>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="dashboard-section-title">
+                <div>
+                    <h2>Drafts</h2>
+                    <p>Saved on this device only — not visible to readers.</p>
+                </div>
+            </div>
+
+            <div id="draftsList">
+                <div class="empty-state">
+                    <i class="fa-regular fa-file-lines"></i>
+                    No drafts yet. Click "New Article" above to start one.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="dashboard-toast" id="dashboardToast">Saved</div>
+
+    <footer>
+        <p>Football Analysis | Editorial reports, tactical breakdowns, transfer news, opinions, history, and predictions.</p>
+    </footer>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/saved.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const DRAFTS_KEY = 'football_analysis_drafts';
+            const SAVED_KEY = 'football_analysis_saved_articles';
+
+            const toast = document.getElementById('dashboardToast');
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.add('show');
+                clearTimeout(showToast._t);
+                showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            function escapeHtml(value) {
+                return String(value == null ? '' : value)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            function getDrafts() {
+                try {
+                    return JSON.parse(localStorage.getItem(DRAFTS_KEY)) || [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            function saveDrafts(drafts) {
+                localStorage.setItem(DRAFTS_KEY, JSON.stringify(drafts));
+            }
+
+            function renderDrafts() {
+                const drafts = getDrafts();
+                const list = document.getElementById('draftsList');
+                document.getElementById('statDrafts').textContent = drafts.length;
+
+                if (drafts.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fa-regular fa-file-lines"></i>
+                            No drafts yet. Click "New Article" above to start one.
+                        </div>
+                    `;
+                    return;
+                }
+
+                list.innerHTML = `
+                    <div class="articles-table-wrap">
+                        <table class="articles-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Last Saved</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${drafts.map((d, i) => `
+                                    <tr>
+                                        <td><strong>${escapeHtml(d.title) || '(Untitled draft)'}</strong></td>
+                                        <td><span class="category ${escapeHtml(d.category)}">${escapeHtml(d.category)}</span></td>
+                                        <td>${escapeHtml(d.savedAt)}</td>
+                                        <td><span class="status-pill draft"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Draft</span></td>
+                                        <td>
+                                            <div class="row-actions">
+                                                <button type="button" class="edit-draft-btn" data-index="${i}" aria-label="Edit"><i class="fa-solid fa-pen"></i></button>
+                                                <button type="button" class="delete-action delete-draft-btn" data-index="${i}" aria-label="Delete"><i class="fa-solid fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                list.querySelectorAll('.delete-draft-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const idx = parseInt(btn.getAttribute('data-index'), 10);
+                        const drafts = getDrafts();
+                        drafts.splice(idx, 1);
+                        saveDrafts(drafts);
+                        renderDrafts();
+                        showToast('Draft deleted');
+                    });
+                });
+
+                list.querySelectorAll('.edit-draft-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const idx = parseInt(btn.getAttribute('data-index'), 10);
+                        const draft = getDrafts()[idx];
+                        if (!draft) return;
+
+                        document.getElementById('draftTitle').value = draft.title || '';
+                        document.getElementById('draftCategory').value = draft.category || 'analysis';
+                        document.getElementById('draftReadTime').value = draft.readTime || '';
+                        document.getElementById('draftExcerpt').value = draft.excerpt || '';
+                        document.getElementById('draftBody').value = draft.body || '';
+
+                        document.getElementById('saveDraftBtn').setAttribute('data-editing-index', idx);
+                        openComposer();
+                    });
+                });
+            }
+
+            function openComposer() {
+                document.getElementById('composerSection').style.display = 'block';
+                document.getElementById('composerSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function closeComposer() {
+                document.getElementById('composerSection').style.display = 'none';
+                document.getElementById('draftTitle').value = '';
+                document.getElementById('draftCategory').value = 'analysis';
+                document.getElementById('draftReadTime').value = '';
+                document.getElementById('draftExcerpt').value = '';
+                document.getElementById('draftBody').value = '';
+                document.getElementById('saveDraftBtn').removeAttribute('data-editing-index');
+            }
+
+            document.getElementById('newArticleBtn').addEventListener('click', function () {
+                closeComposer();
+                openComposer();
+            });
+
+            document.getElementById('closeComposerBtn').addEventListener('click', closeComposer);
+
+            document.getElementById('saveDraftBtn').addEventListener('click', function () {
+                const title = document.getElementById('draftTitle').value.trim();
+                if (!title) {
+                    alert('Give the draft a title before saving.');
+                    return;
+                }
+
+                const draft = {
+                    title: title,
+                    category: document.getElementById('draftCategory').value,
+                    readTime: document.getElementById('draftReadTime').value.trim(),
+                    excerpt: document.getElementById('draftExcerpt').value.trim(),
+                    body: document.getElementById('draftBody').value.trim(),
+                    savedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                };
+
+                const drafts = getDrafts();
+                const editingIndex = this.getAttribute('data-editing-index');
+
+                if (editingIndex !== null && drafts[editingIndex]) {
+                    drafts[editingIndex] = draft;
+                } else {
+                    drafts.push(draft);
+                }
+
+                saveDrafts(drafts);
+                renderDrafts();
+                closeComposer();
+                showToast('Draft saved');
+            });
+
+            // Bookmarked-on-this-device count — the one genuinely real
+            // number here, pulled from the same localStorage saved.js uses.
+            // (There's no shared backend, so cross-reader analytics aren't
+            // possible on a static site — everything else here is
+            // illustrative sample data.)
+            try {
+                const saved = JSON.parse(localStorage.getItem(SAVED_KEY)) || [];
+                document.getElementById('statSaves').textContent = saved.length;
+            } catch (e) {
+                document.getElementById('statSaves').textContent = '0';
+            }
+
+            renderDrafts();
+        });
+    </script>
+</body>
+</html>

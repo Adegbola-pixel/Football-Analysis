@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Articles | Football Analysis</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <!-- Site Header -->
+    <header class="site-header">
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Football Analysis home">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li class="nav-dropdown"><a href="analysis.html">Analysis <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="news.html">News <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="opinions.html">Opinions <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="history.html">History <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="predictions.html">Predictions <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="icon-btn search-btn" type="button" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="icon-btn dark-mode-btn" type="button" aria-label="Toggle dark mode">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+                <button class="menu-btn" type="button" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="profile-dropdown">
+                    <button class="icon-btn profile-btn" type="button" aria-label="Profile">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </button>
+                    <div class="profile-menu">
+                        <div class="profile-menu-header">
+                            <i class="fa-regular fa-circle-user"></i>
+                            <div>
+                                <strong>Guest User</strong>
+                                <span>Football Analysis reader</span>
+                            </div>
+                        </div>
+                        <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                        <a href="signup.html"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+                        <a href="saved.html"><i class="fa-regular fa-bookmark"></i> Saved Articles</a>
+                        <a href="writer-dashboard.html"><i class="fa-solid fa-pen-nib"></i> Writer Dashboard</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Overlay & Mobile Navigation -->
+    <div class="menu-overlay"></div>
+    <aside class="mobile-menu">
+        <div class="mobile-menu-top">
+            <a href="../index.html" class="mobile-menu-logo">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+            <button class="close-menu" type="button" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="mobile-menu-links">
+            <a href="../index.html">Home</a>
+            <a href="analysis.html">Analysis</a>
+            <a href="news.html">News</a>
+            <a href="opinions.html">Opinions</a>
+            <a href="history.html">History</a>
+            <a href="predictions.html">Predictions</a>
+        </nav>
+    </aside>
+
+    <!-- Search Panel Overlay -->
+    <div class="search-overlay"></div>
+    <section class="search-panel">
+        <form class="search-form">
+            <input type="search" name="q" placeholder="Search news, analysis, history..." aria-label="Search">
+            <button type="submit" aria-label="Submit search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="close-search" type="button" aria-label="Close search">&times;</button>
+        </form>
+        <div class="search-results" aria-live="polite"></div>
+    </section>
+
+    <!-- Main Saved Articles Content -->
+    <main>
+        <div class="ticker">
+            <strong>Reading List:</strong>
+            <p>Your saved bookmarks and offline reading queue.</p>
+        </div>
+
+        <section>
+            <div class="section-title">
+                <h2>Saved Articles (3)</h2>
+                <button type="button" id="clearAllBtn" style="background: none; border: none; cursor: pointer; color: #d9534f; font-size: 0.9rem;">Clear All</button>
+            </div>
+
+            <div class="news-container">
+                <!-- Saved Card 1 -->
+                <article class="news-card">
+                    <img src="../images/pressing.jpg" alt="Pressing tactics board">
+                    <div class="news-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="category analysis">Analysis</span>
+                            <button class="bookmark-btn" type="button" data-id="pressing" aria-label="Remove bookmark" style="background: none; border: none; cursor: pointer; color: #888;" title="Remove bookmark">
+                                <i class="fa-solid fa-bookmark" style="color: #1a73e8;"></i>
+                            </button>
+                        </div>
+                        <h3><a href="pressing.html">How Pressing Has Changed Modern Football</a></h3>
+                        <p>A tactical breakdown of how top teams press, trap opponents, and win the ball higher up the pitch.</p>
+                        <div class="news-info">
+                            <span>Saved on July 2, 2026</span>
+                            <a href="pressing.html">Read Article &rarr;</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Saved Card 2 -->
+                <article class="news-card">
+                    <img src="../images/spain vs france.jpg" alt="Spain vs France semi final">
+                    <div class="news-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="category review">Match Review</span>
+                            <button class="bookmark-btn" type="button" data-id="spainvsfrance" aria-label="Remove bookmark" style="background: none; border: none; cursor: pointer; color: #888;" title="Remove bookmark">
+                                <i class="fa-solid fa-bookmark" style="color: #1a73e8;"></i>
+                            </button>
+                        </div>
+                        <h3><a href="spainvsfrance.html">Spain Beat France To Reach World Cup Final</a></h3>
+                        <p>Goals from Mikel Oyarzabal and Pedro Porro sent Spain past France and into their first World Cup final since 2010.</p>
+                        <div class="news-info">
+                            <span>Saved on July 16, 2026</span>
+                            <a href="spainvsfrance.html">Read Article &rarr;</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Saved Card 3 -->
+                <article class="news-card">
+                    <img src="../images/south africa vs canada.avif" alt="South Africa vs Canada prediction">
+                    <div class="news-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="category prediction">Prediction</span>
+                            <button class="bookmark-btn" type="button" data-id="southafricavscanadaprediction" aria-label="Remove bookmark" style="background: none; border: none; cursor: pointer; color: #888;" title="Remove bookmark">
+                                <i class="fa-solid fa-bookmark" style="color: #1a73e8;"></i>
+                            </button>
+                        </div>
+                        <h3><a href="southafricavscanadaprediction.html">South Africa vs Canada Match Predictions</a></h3>
+                        <p>The World Cup Round of 32 opener brings tactical previews, key battles, and a score prediction.</p>
+                        <div class="news-info">
+                            <span>Saved on June 29, 2026</span>
+                            <a href="southafricavscanadaprediction.html">Read Article &rarr;</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Football Analysis | Editorial reports, tactical breakdowns, transfer news, opinions, history, and predictions.</p>
+    </footer>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/saved.js"></script>
+</body>
+</html>

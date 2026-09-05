@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Football Analysis</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+   <header class="site-header">
+        <nav>
+            <a href="index.html" class="logo" aria-label="Football Analysis home">
+                <img src="/images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="analysis.html">Analysis</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="opinions.html">Opinions</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="predictions.html">Predictions</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="icon-btn dark-mode-btn" type="button" aria-label="Toggle dark mode">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+
+                <button class="menu-btn" type="button" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+               <div class="profile-dropdown">
+    <button class="icon-btn profile-btn" type="button" aria-label="Profile">
+        <i class="fa-regular fa-circle-user"></i>
+    </button>
+
+    <div class="profile-menu">
+        <div class="profile-menu-header">
+            <i class="fa-regular fa-circle-user"></i>
+            <div>
+                <strong>Guest User</strong>
+                <span>Football Analysis reader</span>
+            </div>
+        </div>
+
+        <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        <a href="signup.html"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+        <a href="saved.html"><i class="fa-regular fa-bookmark"></i> Saved Articles</a>
+        <a href="writer-dashboard.html"><i class="fa-solid fa-pen-nib"></i> Writer Dashboard</a>
+        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+    </div>
+</div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <aside class="mobile-menu">
+        <div class="mobile-menu-top">
+            <a href="/index.html" class="mobile-menu-logo">
+                <img src="/images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+            <button class="close-menu" type="button" aria-label="Close menu">&times;</button>
+        </div>
+
+        <nav class="mobile-menu-links">
+            <a href="/index.html">Home</a>
+            <a href="analysis.html">Analysis</a>
+            <a href="news.html">News</a>
+            <a href="opinions.html">Opinions</a>
+            <a href="history.html">History</a>
+            <a href="predictions.html">Predictions</a>
+        </nav>
+    </aside>
+
+    <main>
+        <div class="checkout-header">
+            <a href="plans.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Plans</a>
+            <h1>Checkout</h1>
+        </div>
+
+        <div class="checkout-layout" id="checkoutLayout">
+
+            <div class="checkout-card">
+                <div class="checkout-note dev-note">
+                    <strong style="display:block; margin-bottom:4px;"><i class="fa-solid fa-circle-info"></i> Developer note</strong>
+                    PayPal below uses PayPal's public sandbox client ID so the button actually renders and can complete a test order — swap in your real Client ID from the PayPal Developer Dashboard before going live.
+                    Card, Apple Pay, and Google Pay need a real processor (Stripe, Braintree, etc.) and — for Apple/Google Pay specifically — your domain registered as a merchant with each, before they can move real money. Right now they simulate a successful payment so you can see the unlock flow work end-to-end.
+                </div>
+
+                <div class="pay-tabs" role="tablist">
+                    <button type="button" class="pay-tab active" data-tab="card">
+                        <i class="fa-solid fa-credit-card"></i> Card
+                    </button>
+                    <button type="button" class="pay-tab" data-tab="paypal">
+                        <i class="fa-brands fa-paypal"></i> PayPal
+                    </button>
+                    <button type="button" class="pay-tab" data-tab="applepay">
+                        <i class="fa-brands fa-apple-pay"></i> Apple Pay
+                    </button>
+                    <button type="button" class="pay-tab" data-tab="googlepay">
+                        <i class="fa-brands fa-google-pay"></i> Google Pay
+                    </button>
+                </div>
+
+                <!-- CARD -->
+                <div class="pay-panel active" id="panel-card">
+                    <div class="checkout-field">
+                        <label for="cardName">Name on card</label>
+                        <input type="text" id="cardName" placeholder="George Oyefeso" autocomplete="cc-name">
+                    </div>
+
+                    <div class="checkout-field">
+                        <label for="cardNumber">Card number</label>
+                        <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" inputmode="numeric" autocomplete="cc-number" maxlength="19">
+                    </div>
+
+                    <div class="checkout-field-row">
+                        <div class="checkout-field">
+                            <label for="cardExpiry">Expiry</label>
+                            <input type="text" id="cardExpiry" placeholder="MM / YY" autocomplete="cc-exp" maxlength="7">
+                        </div>
+                        <div class="checkout-field">
+                            <label for="cardCvv">CVV</label>
+                            <input type="text" id="cardCvv" placeholder="123" inputmode="numeric" autocomplete="cc-csc" maxlength="4">
+                        </div>
+                    </div>
+
+                    <p class="checkout-note">Full payment is charged now for the plan you selected — no installment option is available.</p>
+
+                    <button type="button" class="checkout-submit" id="cardSubmitBtn">Pay Now</button>
+                </div>
+
+                <!-- PAYPAL -->
+                <div class="pay-panel" id="panel-paypal">
+                    <p class="checkout-note" style="margin-bottom:16px;">You'll be asked to log in to PayPal (or a linked card/bank) to approve the payment.</p>
+                    <div id="paypal-button-container"></div>
+                </div>
+
+                <!-- APPLE PAY -->
+                <div class="pay-panel" id="panel-applepay">
+                    <div id="applepay-button"></div>
+                    <div class="wallet-fallback" id="applepay-fallback" style="display:none;">
+                        <strong>Apple Pay isn't available here</strong>
+                        Apple Pay only appears in Safari, on a device with a card set up in Wallet, and on a domain that's been verified with Apple as a merchant. None of that can be simulated in this preview.
+                    </div>
+                </div>
+
+                <!-- GOOGLE PAY -->
+                <div class="pay-panel" id="panel-googlepay">
+                    <div id="googlepay-button"></div>
+                    <div class="wallet-fallback" id="googlepay-fallback" style="display:none;">
+                        <strong>Google Pay isn't available here</strong>
+                        Google Pay needs a browser/device with a saved payment method and a real Google Pay merchant configuration behind it, which this preview doesn't have.
+                    </div>
+                </div>
+
+                <div class="checkout-success" id="checkoutSuccess">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <h2>You're all set!</h2>
+                    <p id="successMessage">Your Premium subscription is now active.</p>
+                    <a href="predictions.html" class="checkout-submit" id="successReturnBtn" style="display:inline-block; text-decoration:none; width:auto; padding:13px 26px;">Continue Reading</a>
+                </div>
+            </div>
+
+            <aside class="checkout-card order-summary">
+                <h2>Order Summary</h2>
+
+                <div class="order-row">
+                    <span id="summaryPlanName">Monthly Plan</span>
+                    <span id="summaryPlanPrice">$100.00</span>
+                </div>
+                <div class="order-row">
+                    <span>Billing</span>
+                    <span id="summaryBillingCycle">Every month</span>
+                </div>
+                <div class="order-row total">
+                    <span>Total due today</span>
+                    <span id="summaryTotal">$100.00</span>
+                </div>
+
+                <p class="plan-switch-note">Wrong plan? <a href="plans.html">Change plan</a></p>
+
+                <div class="order-badges">
+                    <span class="order-badge"><i class="fa-solid fa-lock"></i> Secure checkout</span>
+                    <span class="order-badge"><i class="fa-solid fa-ban"></i> No installments</span>
+                    <span class="order-badge"><i class="fa-solid fa-rotate-left"></i> Cancel anytime</span>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>Football Analysis | Editorial reports, tactical breakdowns, transfer news, opinions, history, and predictions.</p>
+    </footer>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD" data-namespace="paypal_sdk"></script>
+    <script src="/js/index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ---------------------------------------------------------
+            // 1. READ THE SELECTED PLAN FROM THE URL
+            //    (?plan=monthly|annual&return=/some/page.html)
+            // ---------------------------------------------------------
+            const params = new URLSearchParams(window.location.search);
+            const plan = params.get('plan') === 'annual' ? 'annual' : 'monthly';
+            const returnUrl = params.get('return') || 'predictions.html';
+
+            const PLAN_DETAILS = {
+                monthly: { name: 'Monthly Plan', price: 100, cycle: 'Every month', display: '$100.00' },
+                annual: { name: 'Annual Plan', price: 1200, cycle: 'Once a year', display: '$1,200.00' }
+            };
+
+            const details = PLAN_DETAILS[plan];
+
+            document.getElementById('summaryPlanName').textContent = details.name;
+            document.getElementById('summaryPlanPrice').textContent = details.display;
+            document.getElementById('summaryBillingCycle').textContent = details.cycle;
+            document.getElementById('summaryTotal').textContent = details.display;
+            document.getElementById('successReturnBtn').setAttribute('href', returnUrl);
+
+            // ---------------------------------------------------------
+            // 2. TAB SWITCHING
+            // ---------------------------------------------------------
+            const tabs = document.querySelectorAll('.pay-tab');
+            const panels = document.querySelectorAll('.pay-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    document.getElementById('panel-' + tab.getAttribute('data-tab')).classList.add('active');
+                });
+            });
+
+            // ---------------------------------------------------------
+            // 3. COMPLETE CHECKOUT — this is the part that's "real":
+            //    setting fa_subscribed + fa_plan in localStorage is what
+            //    every premium page's paywall.js checks on load, and the
+            //    native `storage` event broadcasts that change live to
+            //    any other open tab. The payment methods below simulate
+            //    a successful charge (except PayPal's button, which is a
+            //    genuine sandbox order) since real charging needs a
+            //    server-side processor — see the dev note above.
+            // ---------------------------------------------------------
+            function completeCheckout(methodLabel) {
+                localStorage.setItem('fa_subscribed', 'true');
+                localStorage.setItem('fa_plan', plan);
+
+                document.getElementById('checkoutLayout').querySelector('.checkout-card').querySelectorAll('.pay-tabs, .pay-panel, .checkout-note.dev-note').forEach(el => {
+                    el.style.display = 'none';
+                });
+
+                document.getElementById('successMessage').textContent =
+                    'Paid via ' + methodLabel + '. Your Premium subscription (' + details.name + ') is now active.';
+                document.getElementById('checkoutSuccess').classList.add('show');
+            }
+
+            // ---- Card tab ----
+            document.getElementById('cardSubmitBtn').addEventListener('click', function () {
+                const btn = this;
+                const number = document.getElementById('cardNumber').value.trim();
+                const expiry = document.getElementById('cardExpiry').value.trim();
+                const cvv = document.getElementById('cardCvv').value.trim();
+
+                if (!number || !expiry || !cvv) {
+                    alert('Fill in your card details to continue. (Demo: any values work, nothing is actually charged.)');
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = 'Processing…';
+
+                setTimeout(function () {
+                    completeCheckout('Card');
+                }, 900);
+            });
+
+            // ---- PayPal tab (real sandbox SDK) ----
+            if (window.paypal) {
+                paypal.Buttons({
+                    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+                    createOrder: function (data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                description: details.name + ' — Football Analysis',
+                                amount: { value: details.price.toFixed(2) }
+                            }]
+                        });
+                    },
+                    onApprove: function (data, actions) {
+                        return actions.order.capture().then(function () {
+                            completeCheckout('PayPal');
+                        });
+                    },
+                    onError: function (err) {
+                        console.error('PayPal error:', err);
+                        alert('PayPal sandbox order could not complete. Try again, or use another payment method.');
+                    }
+                }).render('#paypal-button-container');
+            } else {
+                document.getElementById('paypal-button-container').innerHTML =
+                    '<div class="wallet-fallback"><strong>PayPal didn\'t load</strong>Check your connection and reload the page.</div>';
+            }
+
+            // ---- Apple Pay tab (Payment Request API) ----
+            const applePayFallback = document.getElementById('applepay-fallback');
+            const applePayContainer = document.getElementById('applepay-button');
+
+            function renderApplePay() {
+                const canUse = window.ApplePaySession && ApplePaySession.canMakePayments && ApplePaySession.canMakePayments();
+                if (!canUse) {
+                    applePayFallback.style.display = 'block';
+                    return;
+                }
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'checkout-submit';
+                btn.innerHTML = '<i class="fa-brands fa-apple-pay"></i> Pay';
+                btn.addEventListener('click', function () {
+                    // A real integration builds an ApplePayPaymentRequest here,
+                    // starts an ApplePaySession, and validates the merchant
+                    // session against your server + Apple. That server-side
+                    // half doesn't exist in this static preview, so we
+                    // simulate a successful sheet completion instead.
+                    completeCheckout('Apple Pay');
+                });
+                applePayContainer.appendChild(btn);
+            }
+            renderApplePay();
+
+            // ---- Google Pay tab (Payment Request API) ----
+            const googlePayFallback = document.getElementById('googlepay-fallback');
+            const googlePayContainer = document.getElementById('googlepay-button');
+
+            function renderGooglePay() {
+                if (!window.PaymentRequest) {
+                    googlePayFallback.style.display = 'block';
+                    return;
+                }
+
+                try {
+                    const supportedMethods = [{
+                        supportedMethods: 'https://google.com/pay',
+                        data: {
+                            environment: 'TEST',
+                            apiVersion: 2,
+                            apiVersionMinor: 0,
+                            merchantInfo: { merchantName: 'Football Analysis (demo)' },
+                            allowedPaymentMethods: [{
+                                type: 'CARD',
+                                parameters: {
+                                    allowedAuthMethods: ['PAN_ONLY'],
+                                    allowedCardNetworks: ['VISA', 'MASTERCARD']
+                                }
+                            }]
+                        }
+                    }];
+
+                    const details2 = {
+                        total: {
+                            label: details.name,
+                            amount: { currency: 'USD', value: details.price.toFixed(2) }
+                        }
+                    };
+
+                    const request = new PaymentRequest(supportedMethods, details2);
+
+                    request.canMakePayment().then(function (canPay) {
+                        if (!canPay) {
+                            googlePayFallback.style.display = 'block';
+                            return;
+                        }
+
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'checkout-submit';
+                        btn.innerHTML = '<i class="fa-brands fa-google-pay"></i> Pay';
+                        btn.addEventListener('click', function () {
+                            request.show().then(function (response) {
+                                response.complete('success');
+                                completeCheckout('Google Pay');
+                            }).catch(function () {
+                                googlePayFallback.style.display = 'block';
+                            });
+                        });
+                        googlePayContainer.appendChild(btn);
+                    }).catch(function () {
+                        googlePayFallback.style.display = 'block';
+                    });
+                } catch (e) {
+                    googlePayFallback.style.display = 'block';
+                }
+            }
+            renderGooglePay();
+        });
+    </script>
+</body>
+</html>

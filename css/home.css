@@ -1,0 +1,1554 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f5f7f2;
+    --surface: #ffffff;
+    --ink: #111827;
+    --muted: #667085;
+    --line: #d7ded2;
+    --green: #176b3a;
+    --green-dark: #0d3f24;
+    --gold: #d69e2e;
+    --red: #c2410c;
+    --blue: #2563eb;
+    --radius: 8px;
+    --shadow: 0 18px 45px rgba(17, 24, 39, 0.12);
+}
+
+body.dark-mode {
+    --bg: #05080c;
+    --surface: #101820;
+    --ink: #f8fafc;
+    --muted: #b6c2d1;
+    --line: #263241;
+    --green: #22c55e;
+    --green-dark: #071f13;
+    --gold: #facc15;
+    --red: #ef4444;
+    --blue: #60a5fa;
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: black;
+    border-bottom: 1px solid var(--line);
+}
+
+nav {
+    position: relative;
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: black;
+    padding: 0 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    max-height: 70px;
+    object-fit: contain;
+}
+
+.logo span:last-child {
+    font-size: 18px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.nav-links a {
+    padding: 10px 2px;
+}
+
+.nav-links a:hover {
+    color: var(--green);
+}
+
+/* MEGA MENU (nav dropdown) */
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-dropdown > a i {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover > a i,
+.nav-dropdown.open > a i {
+    transform: rotate(180deg);
+    color: var(--green);
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 16px;
+    transform: translate(-50%, -8px);
+    width: min(760px, 82vw);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+    z-index: 60;
+}
+
+/* invisible bridge so hover never drops between the link and the menu */
+.mega-menu::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    left: 0;
+    right: 0;
+    height: 16px;
+}
+
+.nav-dropdown:hover .mega-menu,
+.nav-dropdown.open .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+/* ============================================
+   MEGA-FEATURED CARD
+   Structure expected:
+   <div class="mega-featured">
+       <img ...>
+       <a href="...">
+           <span class="category ...">Featured</span>
+           <h3>...</h3>
+           <p>...</p>
+           <small>...</small>
+       </a>
+       <button class="bookmark-btn">...</button>
+   </div>
+   The <img> and the <a> are separate direct children
+   on purpose — the image is an absolute-positioned
+   background, the <a> is the clickable text block,
+   and the bookmark button floats on top of both.
+   Do NOT nest <img> inside the <a>, and do NOT nest
+   the <button> inside the <a> — that combination is
+   what caused the mega-menu to blow up in height.
+   ============================================ */
+
+.mega-featured {
+    position: relative;
+    min-height: 100%;
+    background: #111827;
+    color: white;
+    overflow: hidden;
+}
+
+.mega-featured img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+    z-index: 0;
+}
+
+.mega-featured::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 20, 13, 0.15), rgba(5, 20, 13, 0.94));
+    z-index: 0;
+}
+
+.mega-featured > a {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100%;
+    padding: 20px;
+    color: inherit;
+}
+
+.mega-featured h3 {
+    margin-top: 10px;
+    font-size: 19px;
+    line-height: 1.25;
+}
+
+.mega-featured p {
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.mega-featured small {
+    display: block;
+    margin-top: 14px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.mega-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+}
+
+/* ============================================
+   MEGA-ITEM CARD
+   Structure expected:
+   <div class="mega-item">
+       <a href="...">
+           <img ...>
+           <div>
+               <span class="category ...">...</span>
+               <h4>...</h4>
+               <small>...</small>
+           </div>
+       </a>
+       <button class="bookmark-btn">...</button>
+   </div>
+   The 84px/1fr grid lives on the <a>, not on
+   .mega-item itself — .mega-item is just a
+   positioning box for the floating bookmark button.
+   ============================================ */
+
+.mega-item {
+    position: relative;
+    background: var(--surface);
+    transition: background 0.15s ease;
+}
+
+.mega-item:hover {
+    background: var(--bg);
+}
+
+.mega-item > a {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 12px;
+    padding: 16px;
+    padding-right: 42px; /* keeps text clear of the bookmark button */
+}
+
+.mega-item img {
+    width: 100%;
+    height: 64px;
+    border-radius: 6px;
+}
+
+.mega-item .category {
+    font-size: 10px;
+    min-height: 20px;
+    padding: 3px 8px;
+}
+
+.mega-item h4 {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--ink);
+    transition: color 0.15s ease;
+}
+
+.mega-item:hover h4 {
+    color: var(--green);
+}
+
+.mega-item small {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+body.dark-mode .mega-menu {
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .mega-item {
+    background: var(--surface);
+}
+
+body.dark-mode .mega-grid {
+    background: var(--line);
+}
+
+@media (max-width: 920px) {
+    .mega-menu {
+        grid-template-columns: 1fr;
+        width: min(340px, 88vw);
+    }
+
+    .mega-featured {
+        min-height: 150px;
+    }
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn,
+.menu-btn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.icon-btn:hover,
+.menu-btn:hover {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+    transform: translateY(-2px);
+}
+
+.icon-btn:active,
+.menu-btn:active {
+    transform: translateY(0);
+}
+
+.icon-btn i,
+.menu-btn i {
+    pointer-events: none;
+}
+
+.menu-btn {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.profile-btn {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.profile-btn:hover {
+    background: white;
+    color: var(--green-dark);
+    border-color: white;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-menu {
+    position: absolute;
+    top: 100%;
+    margin-top: 10px;
+    right: 0;
+    width: 260px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: 0.2s ease;
+    z-index: 60;
+}
+
+.profile-menu::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.profile-dropdown:hover .profile-menu,
+.profile-dropdown.open .profile-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-menu-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+}
+
+.profile-menu-header > i {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--green);
+    color: white;
+    font-size: 22px;
+}
+
+.profile-menu-header strong {
+    display: block;
+    color: var(--ink);
+    font-size: 15px;
+}
+
+.profile-menu-header span {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.profile-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--line);
+}
+
+.profile-menu a:last-child {
+    border-bottom: none;
+}
+
+.profile-menu a i {
+    width: 18px;
+    color: var(--green);
+}
+
+.profile-menu a:hover {
+    background: var(--bg);
+    color: var(--green);
+}
+
+body.dark-mode .profile-menu {
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .profile-menu-header {
+    background: #0b1117;
+    border-color: var(--line);
+}
+
+body.dark-mode .profile-menu a {
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+body.dark-mode .profile-menu a:hover {
+    background: #0b1117;
+    color: var(--green);
+}
+
+body.dark-mode .icon-btn,
+body.dark-mode .menu-btn {
+    background: #182333;
+    color: white;
+    border-color: #334155;
+}
+
+body.dark-mode .icon-btn:hover,
+body.dark-mode .menu-btn:hover {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+body.dark-mode .profile-btn {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+body.dark-mode .profile-btn:hover {
+    background: white;
+    color: #071f13;
+}
+
+/* SIDE MENU DRAWER & SEARCH OVERLAY */
+
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 70;
+    transition: 0.25s ease;
+}
+
+.search-panel {
+    position: fixed;
+    top: 76px;
+    left: 50%;
+    width: min(760px, calc(100% - 28px));
+    transform: translate(-50%, -20px);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 80;
+    transition: 0.25s ease;
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: 1fr 48px 48px;
+    gap: 8px;
+    padding: 12px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+}
+
+.search-form input {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 13px 14px;
+    font: inherit;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+}
+
+.search-form input:focus {
+    border-color: var(--green);
+}
+
+.search-form button {
+    border: none;
+    border-radius: var(--radius);
+    background: var(--green);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.close-search {
+    background: #111827 !important;
+    font-size: 26px !important;
+    line-height: 1;
+}
+
+/* SEARCH RESULTS */
+
+.search-results {
+    display: none;
+    margin-top: 10px;
+    max-height: 380px;
+    overflow-y: auto;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+}
+
+.search-results.active {
+    display: block;
+}
+
+.search-result {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.15s ease;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result:hover {
+    background: var(--bg);
+}
+
+.search-result img {
+    width: 100%;
+    height: 44px;
+    border-radius: 6px;
+}
+
+.search-result .category {
+    font-size: 10px;
+    min-height: 18px;
+    padding: 2px 7px;
+}
+
+.search-result h4 {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--ink);
+}
+
+.search-result:hover h4 {
+    color: var(--green);
+}
+
+.search-empty {
+    padding: 18px 14px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+body.dark-mode .search-results {
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.search-open {
+    overflow: hidden;
+}
+
+body.search-open .search-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.search-open .search-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+body.dark-mode .search-form {
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .search-form input {
+    background: #0b1117;
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+body.dark-mode .close-search {
+    background: #334155 !important;
+}
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.68);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 90;
+    transition: 0.25s ease;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(555px, 88vw);
+    height: 100vh;
+    background: black;
+    color: white;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    padding: 28px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 64px;
+    margin-bottom: 24px;
+}
+
+.mobile-menu-logo {
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.mobile-menu-logo img {
+    width: 150px;
+    height: auto;
+    max-height: 70px;
+    object-fit: contain;
+}
+
+.close-menu {
+    position: absolute;
+    right: 0;
+    top: 6px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 52px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.mobile-menu-links {
+    display: block;
+}
+
+.mobile-menu-links a,
+.menu-link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.menu-link-row span {
+    font-size: 42px;
+    font-weight: 500;
+}
+
+.mobile-menu-social {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 28px;
+}
+
+.mobile-menu-social p {
+    margin-bottom: 18px;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.mobile-menu-social div {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.mobile-menu-social a {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+    font-weight: 900;
+}
+
+body.menu-open .menu-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.menu-open .mobile-menu {
+    transform: translateX(0);
+}
+
+main {
+    width: min(1180px, calc(100% - 32px));
+    margin: 32px auto 64px;
+}
+
+.ticker {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 12px 14px;
+    background: var(--green-dark);
+    color: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.ticker strong {
+    flex: 0 0 auto;
+    color: #ffe7a3;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.ticker p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 0.9fr);
+    gap: 24px;
+}
+
+.hero-main {
+    min-height: 560px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: black;
+    box-shadow: var(--shadow);
+}
+
+.hero-main img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.72;
+}
+
+.hero-main::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(5, 20, 13, 0.92),
+        rgba(5, 20, 13, 0.55),
+        rgba(5, 20, 13, 0.12)
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+    min-height: 560px;
+    padding: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.category {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--green);
+}
+
+.transfer { background: var(--red); }
+.analysis { background: var(--blue); }
+.player { background: #7c3aed; }
+.review { background: var(--gold); color: #1f2937; }
+.opinion { background: #be185d; }
+.news { background: var(--green); }
+.history { background: #334155; }
+.prediction { background: #0e7490; }
+
+/* PREDICTIONS SECTION */
+
+.prediction-content {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.prediction-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--ink);
+}
+
+.prediction-teams .team {
+    flex: 1;
+}
+
+.prediction-teams .team:last-child {
+    text-align: right;
+}
+
+.score-pill {
+    flex: 0 0 auto;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--green);
+}
+
+body.dark-mode .score-pill {
+    background: #0b1117;
+    border-color: var(--line);
+}
+
+@media (max-width: 920px) {
+    .prediction-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .prediction-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+h1 {
+    max-width: 12ch;
+    margin-top: 16px;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.95;
+}
+
+.hero-content p {
+    max-width: 58ch;
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 18px;
+}
+
+.article-info,
+.news-info,
+.meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.article-info {
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.btn {
+    width: fit-content;
+    margin-top: 26px;
+    padding: 13px 18px;
+    border-radius: var(--radius);
+    background: white;
+    color: var(--green-dark);
+    font-weight: 900;
+}
+
+.hero-side {
+    display: grid;
+    gap: 16px;
+}
+
+/* ============================================
+   SIDE CARD
+   Structure expected:
+   <article class="side-card">
+       <img ...>
+       <div>
+           <div class="side-card-header">
+               <span class="category ...">...</span>
+               <button class="bookmark-btn">...</button>
+           </div>
+           <h3><a href="...">Title</a></h3>
+           <small>...</small>
+       </div>
+   </article>
+   The bookmark button sits in its own header row
+   next to the category tag — NOT inside the <h3>
+   next to the link. Putting a <button> inside an
+   <h3><a>...</a></h3> was what stretched these
+   cards taller than intended.
+   ============================================ */
+
+.side-card {
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    gap: 14px;
+    min-height: 176px;
+    padding: 12px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+}
+
+.side-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.side-card > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.side-card h3 {
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.side-card small {
+    color: var(--muted);
+    font-weight: 700;
+}
+
+section {
+    margin-top: 54px;
+}
+
+.section-title {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--line);
+}
+
+.section-title h2 {
+    font-size: 30px;
+    line-height: 1;
+}
+
+.section-title a {
+    color: var(--green);
+    font-weight: 900;
+}
+
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.news-card,
+.feature-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+.news-card img {
+    width: 100%;
+    height: 205px;
+    background: #d9e4d2;
+}
+
+.news-content {
+    padding: 18px;
+}
+
+.news-content h3,
+.feature-card h3 {
+    margin-top: 12px;
+    font-size: 21px;
+    line-height: 1.25;
+}
+
+.news-content p,
+.feature-card p {
+    margin: 10px 0 16px;
+    color: var(--muted);
+}
+
+.news-info {
+    justify-content: space-between;
+}
+
+.news-info a,
+.meta-row a {
+    color: var(--green);
+    font-weight: 900;
+}
+
+.editorial-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.feature-card img {
+    width: 100%;
+    height: 320px;
+}
+
+.feature-card div {
+    padding: 20px;
+}
+
+.table-panel {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    overflow: hidden;
+}
+
+.table-panel h3 {
+    padding: 18px;
+    border-bottom: 1px solid var(--line);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+}
+
+th {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+.newsletter {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--green-dark);
+    color: white;
+}
+
+.newsletter p {
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 62ch;
+}
+
+.newsletter form {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter input {
+    width: min(330px, 52vw);
+    border: 0;
+    border-radius: var(--radius);
+    padding: 13px 14px;
+    font: inherit;
+}
+
+.newsletter button {
+    border: 0;
+    border-radius: var(--radius);
+    padding: 13px 18px;
+    background: var(--gold);
+    color: #111827;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+footer {
+    padding: 32px 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    text-align: center;
+    background: var(--surface);
+}
+
+@media (max-width: 920px) {
+    nav {
+        flex-wrap: wrap;
+        padding: 14px 0;
+    }
+
+    .nav-links {
+        width: 100%;
+        order: 3;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .hero,
+    .editorial-grid,
+    .newsletter {
+        grid-template-columns: 1fr;
+    }
+
+    .news-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-main,
+    .hero-content {
+        min-height: 520px;
+    }
+}
+
+@media (max-width: 640px) {
+    main {
+        width: min(100% - 22px, 1180px);
+        margin-top: 18px;
+    }
+
+    nav {
+        width: min(100% - 22px, 1180px);
+        padding: 12px 0;
+    }
+
+    .logo img {
+        width: 120px;
+        max-height: 58px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu {
+        width: 86vw;
+        padding: 24px 24px;
+    }
+
+    .mobile-menu-links a,
+    .menu-link-row {
+        min-height: 58px;
+        font-size: 18px;
+    }
+
+    .close-menu {
+        font-size: 46px;
+    }
+
+    .mobile-menu-social a {
+        width: 44px;
+        height: 44px;
+    }
+
+    .hero-content {
+        padding: 26px;
+    }
+
+    .hero-main,
+    .hero-content {
+        min-height: 500px;
+    }
+
+    .side-card,
+    .news-container {
+        grid-template-columns: 1fr;
+    }
+
+    .side-card img {
+        height: 190px;
+    }
+
+    .newsletter form {
+        flex-direction: column;
+    }
+
+    .newsletter input {
+        width: 100%;
+    }
+}
+
+body.dark-mode {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+body.dark-mode .site-header,
+body.dark-mode nav {
+    background: #020617;
+    border-color: var(--line);
+}
+
+body.dark-mode .nav-links {
+    color: #f8fafc;
+}
+
+body.dark-mode .ticker {
+    background: #0f2f1f;
+    color: white;
+}
+
+body.dark-mode .hero-main {
+    background: #020617;
+}
+
+body.dark-mode .hero-main::after {
+    background: linear-gradient(
+        90deg,
+        rgba(2, 6, 23, 0.95),
+        rgba(2, 6, 23, 0.65),
+        rgba(2, 6, 23, 0.2)
+    );
+}
+
+body.dark-mode .news-card,
+body.dark-mode .feature-card,
+body.dark-mode .side-card,
+body.dark-mode .table-panel {
+    background: var(--surface);
+    border-color: var(--line);
+    color: var(--ink);
+}
+
+body.dark-mode .news-content p,
+body.dark-mode .feature-card p,
+body.dark-mode .side-card small,
+body.dark-mode .article-info,
+body.dark-mode .news-info,
+body.dark-mode .meta-row {
+    color: var(--muted);
+}
+
+body.dark-mode .section-title {
+    border-color: var(--line);
+}
+
+body.dark-mode .section-title a,
+body.dark-mode .news-info a,
+body.dark-mode .meta-row a {
+    color: var(--green);
+}
+
+body.dark-mode .icon-btn,
+body.dark-mode .menu-btn {
+    background: #182333;
+    color: white;
+    border-color: #334155;
+}
+
+body.dark-mode .btn {
+    background: #f8fafc;
+    color: #071f13;
+}
+
+body.dark-mode .mobile-menu {
+    background: #061927;
+}
+
+body.dark-mode .menu-overlay {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+body.dark-mode .newsletter {
+    background: #071f13;
+}
+
+body.dark-mode .newsletter input {
+    background: #f8fafc;
+    color: #111827;
+}
+
+body.dark-mode footer {
+    background: #101820;
+    color: var(--muted);
+    border-color: var(--line);
+}
+
+/* ==========================================================================
+   Bookmark Button Styles (Fixed Layout & Scaled Controls)
+   ========================================================================== */
+
+.news-card-header,
+.hero-header,
+.side-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.bookmark-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.bookmark-btn:hover {
+    color: var(--green);
+    background-color: rgba(23, 107, 58, 0.12);
+    transform: scale(1.1);
+}
+
+.bookmark-btn.bookmarked,
+.bookmark-btn .fa-solid {
+    color: var(--green);
+}
+
+/* Mega Menu bookmark placement — floats over the card, outside
+   the grid/flex flow of the .mega-item / .mega-featured content */
+.mega-item .bookmark-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem;
+}
+
+.mega-featured .bookmark-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: rgba(17, 24, 39, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.mega-featured .bookmark-btn:hover {
+    background: var(--green);
+    color: #ffffff;
+}
+
+.side-card .bookmark-btn {
+    font-size: 0.9rem;
+    padding: 4px;
+}
+
+body.dark-mode .bookmark-btn {
+    color: var(--muted);
+}
+
+body.dark-mode .bookmark-btn:hover {
+    color: var(--green);
+    background-color: rgba(34, 197, 94, 0.15);
+}
+
+body.dark-mode .bookmark-btn.bookmarked,
+body.dark-mode .bookmark-btn .fa-solid {
+    color: var(--green);
+}
+
+body.dark-mode .mega-item .bookmark-btn {
+    background: var(--surface);
+    border-color: var(--line);
+    color: var(--ink);
+}

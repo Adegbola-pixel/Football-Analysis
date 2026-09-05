@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opinions | Football Analysis</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <style>
+        /* Paywall Wrapper Styles */
+        .paywall-wrapper {
+            position: relative;
+        }
+
+        .paywall-blur-content {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+            max-height: 480px;
+            overflow: hidden;
+        }
+
+        /* Paywall Modal Overlay */
+        .paywall-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Paywall Card Component */
+        .paywall-card {
+            background: #ffffff;
+            color: #0f172a;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            padding: 32px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .paywall-badge {
+            background: #e0e7ff;
+            color: #4f46e5;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .paywall-card h2 {
+            font-size: 1.75rem;
+            margin: 0 0 8px 0;
+            color: #0f172a;
+        }
+
+        .paywall-card p.subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin: 0 0 24px 0;
+            line-height: 1.4;
+        }
+
+        /* Pricing Options Toggle */
+        .pricing-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .pricing-plan {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            background: #fff;
+            user-select: none;
+        }
+
+        .pricing-plan:hover {
+            border-color: #818cf8;
+        }
+
+        .pricing-plan.active {
+            border-color: #4f46e5;
+            background-color: #f5f3ff;
+        }
+
+        .pricing-plan input[type="radio"] {
+            display: none;
+        }
+
+        .plan-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: #334155;
+        }
+
+        .plan-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .plan-price span {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .plan-note {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* CTA Button */
+        .paywall-btn {
+            width: 100%;
+            background: #4f46e5;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .paywall-btn:hover {
+            background: #4338ca;
+        }
+
+        .paywall-footer {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .paywall-footer a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .paywall-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Bookmark button positioning for main-content cards */
+        .hero-main { position: relative; }
+        .hero-main .bookmark-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .side-card { position: relative; }
+        .side-card .bookmark-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .news-card { position: relative; }
+        .news-card .bookmark-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Football Analysis home">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+
+                <li class="nav-dropdown">
+                    <a href="analysis.html">Analysis <i class="fa-solid fa-chevron-down"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-featured">
+                            <a href="pressing.html">
+                                <img src="../images/pressing.jpg" alt="Football tactics board">
+                                <span class="category analysis">Featured</span>
+                                <h3>How Pressing Has Changed Modern Football</h3>
+                                <p>A tactical breakdown of how top teams press, trap opponents, and win the ball higher up the pitch.</p>
+                                <small>June 29, 2026</small>
+                            </a>
+                            <button class="bookmark-btn" data-id="pressing" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+
+                        <div class="mega-grid">
+                            <div class="mega-item">
+                                <a href="barcelonaanalysis.html">
+                                    <img src="../images/barcelona club.png" alt="Tactical football analysis">
+                                    <div>
+                                        <span class="category analysis">Analysis</span>
+                                        <h4>Why Barcelona's Midfield Dominated Possession</h4>
+                                        <small>June 27, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="barcelonaanalysis" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+
+                            <div class="mega-item">
+                                <a href="article3.html">
+                                    <img src="../images/pedri.jpg" alt="Midfielder controlling the ball">
+                                    <div>
+                                        <span class="category player">Analysis</span>
+                                        <h4>Why Pedri Is Barcelona's Most Important Midfielder</h4>
+                                        <small>4 hours ago</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="article3" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+
+                            <div class="mega-item">
+                                <a href="cityanalysis.html">
+                                    <img src="../images/Man City.webp" alt="Football match review">
+                                    <div>
+                                        <span class="category review">Review</span>
+                                        <h4>Five Tactical Lessons From City's Victory</h4>
+                                        <small>Yesterday</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="cityanalysis" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-dropdown">
+                    <a href="news.html">News <i class="fa-solid fa-chevron-down"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-featured">
+                            <a href="spainvsfrance.html">
+                                <img src="../images/spain vs france.jpg" alt="Spain celebrate reaching the World Cup final">
+                                <span class="category review">Featured</span>
+                                <h3>Spain Beat France To Reach World Cup Final</h3>
+                                <p>Goals from Mikel Oyarzabal and Pedro Porro sent Spain past France and into their first World Cup final since 2010.</p>
+                                <small>July 15, 2026</small>
+                            </a>
+                            <button class="bookmark-btn" data-id="spainvsfrance" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+
+                        <div class="mega-grid">
+                            <div class="mega-item">
+                                <a href="article.html">
+                                    <img src="../images/javi guerra.webp" alt="Barcelona news">
+                                    <div>
+                                        <span class="category news">News</span>
+                                        <h4>Barcelona Prepare Final Offer For Young Midfielder</h4>
+                                        <small>June 28, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="javi-guerra" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+
+                            <div class="mega-item">
+                                <a href="nicowilliams.html">
+                                    <img src="../images/nico wiliams.webp" alt="Transfer news">
+                                    <div>
+                                        <span class="category transfer">Transfer</span>
+                                        <h4>Nico Williams Reaches Agreement With Barcelona</h4>
+                                        <small>June 28, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="nicowilliams" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+
+                            <div class="mega-item">
+                                <a href="article2.html">
+                                    <img src="../images/Julian Alvarez.webp" alt="Julian Alvarez transfer discussion">
+                                    <div>
+                                        <span class="category transfer">Transfers</span>
+                                        <h4>Julian Alvarez Still Pushing For Barca Move</h4>
+                                        <small>2 hours ago</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="article2" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-dropdown">
+                    <a href="opinions.html">Opinions <i class="fa-solid fa-chevron-down"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-featured">
+                            <a href="bigtransfersopinion.html">
+                                <img src="../images/mbappe.jpg" alt="Football opinion article">
+                                <span class="category opinion">Featured</span>
+                                <h3>Are Big Transfers Still Worth The Risk?</h3>
+                                <p>Clubs are spending more than ever, but smart recruitment may matter more than superstar names.</p>
+                                <small>June 29, 2026</small>
+                            </a>
+                            <button class="bookmark-btn" data-id="bigtransfersopinion" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+
+                        <div class="mega-grid">
+                            <div class="mega-item">
+                                <a href="pressing.html">
+                                    <img src="../images/pressing.jpg" alt="Football tactics board">
+                                    <div>
+                                        <span class="category analysis">Analysis</span>
+                                        <h4>How Pressing Has Changed Modern Football</h4>
+                                        <small>June 29, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="pressing" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-dropdown">
+                    <a href="history.html">History <i class="fa-solid fa-chevron-down"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-featured">
+                            <a href="classic-world-cup-matches.html">
+                                <img src="../images/spain vs netherlands.jpg" alt="Classic football match">
+                                <span class="category history">Featured</span>
+                                <h3>Classic World Cup Matches Every Fan Should Know</h3>
+                                <p>Revisiting the unforgettable matches that shaped football history and inspired future generations.</p>
+                                <small>July 1, 2026</small>
+                            </a>
+                            <button class="bookmark-btn" data-id="classic-world-cup-matches" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+
+                        <div class="mega-grid">
+                            <div class="mega-item">
+                                <a href="tactical-systems-changed-game.html">
+                                    <img src="../images/pressing.jpg" alt="Historic football team">
+                                    <div>
+                                        <span class="category history">History</span>
+                                        <h4>The Tactical Systems That Changed The Game</h4>
+                                        <small>July 1, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="tactical-systems-changed-game" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-dropdown">
+                    <a href="predictions.html">Predictions <i class="fa-solid fa-chevron-down"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-featured">
+                            <a href="southafricavscanadaprediction.html">
+                                <img src="../images/south africa vs canada.avif" alt="Players contesting a football match">
+                                <span class="category prediction">Featured</span>
+                                <h3>South Africa vs Canada Match Predictions</h3>
+                                <p>The World Cup Round of 32 opener brings tactical previews, key battles, and a score prediction.</p>
+                                <small>June 28, 2026</small>
+                            </a>
+                            <button class="bookmark-btn" data-id="southafricavscanadaprediction" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+
+                        <div class="mega-grid">
+                            <div class="mega-item">
+                                <a href="portugalvsslovakia.html">
+                                    <img src="../images/portugal.jpg" alt="Portugal vs Slovakia match">
+                                    <div>
+                                        <span class="category prediction">Prediction</span>
+                                        <h4>Portugal vs Slovakia Match Predictions</h4>
+                                        <small>June 29, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="portugalvsslovakia" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+
+                            <div class="mega-item">
+                                <a href="englandvssenegal.html">
+                                    <img src="../images/englandvssenegal.jpg" alt="England vs Senegal match">
+                                    <div>
+                                        <span class="category prediction">Prediction</span>
+                                        <h4>England vs Senegal Match Predictions</h4>
+                                        <small>June 30, 2026</small>
+                                    </div>
+                                </a>
+                                <button class="bookmark-btn" data-id="englandvssenegal" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="icon-btn search-btn" type="button" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+                <button class="icon-btn dark-mode-btn" type="button" aria-label="Toggle dark mode">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+
+                <button class="menu-btn" type="button" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="profile-dropdown">
+                    <button class="icon-btn profile-btn" type="button" aria-label="Profile">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </button>
+                    <div class="profile-menu">
+                        <div class="profile-menu-header">
+                            <i class="fa-regular fa-circle-user"></i>
+                            <div>
+                                <strong>Guest User</strong>
+                                <span>Football Analysis reader</span>
+                            </div>
+                        </div>
+                        <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                        <a href="signup.html"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+                        <a href="saved.html"><i class="fa-regular fa-bookmark"></i> Saved Articles</a>
+                        <a href="writer-dashboard.html"><i class="fa-solid fa-pen-nib"></i> Writer Dashboard</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <aside class="mobile-menu">
+        <div class="mobile-menu-top">
+            <a href="../index.html" class="mobile-menu-logo">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+            <button class="close-menu" type="button" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="mobile-menu-links">
+            <a href="../index.html">Home</a>
+            <a href="analysis.html">Analysis</a>
+            <a href="news.html">News</a>
+            <a href="opinions.html">Opinions</a>
+            <a href="history.html">History</a>
+            <a href="predictions.html">Predictions</a>
+        </nav>
+    </aside>
+
+    <div class="search-overlay"></div>
+
+    <section class="search-panel">
+        <form class="search-form">
+            <input type="search" name="q" placeholder="Search news, analysis, transfers..." aria-label="Search">
+            <button type="submit" aria-label="Submit search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="close-search" type="button" aria-label="Close search">&times;</button>
+        </form>
+        <div class="search-results" aria-live="polite"></div>
+    </section>
+
+    <!-- PAYWALL MAIN WRAPPER -->
+    <div class="paywall-wrapper">
+        <main id="mainContent" class="paywall-blur-content">
+            <section class="hero">
+                <div class="hero-main">
+                    <button class="bookmark-btn" data-id="bigtransfersopinion" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                    <img src="../images/mbappe.jpg" alt="Football opinion article on big-money transfers">
+
+                    <div class="hero-content">
+                        <span class="category opinion">Opinion</span>
+
+                        <h1>Are Big Transfers Still Worth The Risk?</h1>
+
+                        <p>
+                            Clubs are spending more than ever, but smart recruitment may
+                            matter more than superstar names.
+                        </p>
+
+                        <div class="article-info">
+                            <span>By George Oyefeso</span>
+                            <span>June 29, 2026</span>
+                            <span>6 min read</span>
+                        </div>
+
+                        <a href="bigtransfersopinion.html" class="btn">Read Full Opinion</a>
+                    </div>
+                </div>
+
+                <aside class="hero-side" aria-label="More reading">
+                    <article class="side-card">
+                        <button class="bookmark-btn" data-id="pressing" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        <img src="../images/pressing.jpg" alt="Football tactics board">
+
+                        <div>
+                            <span class="category analysis">Analysis</span>
+                            <h3>How Pressing Has Changed Modern Football</h3>
+                            <small>June 29, 2026</small>
+                            <a href="pressing.html">Read More</a>
+                        </div>
+                    </article>
+                </aside>
+            </section>
+
+            <section class="latest-news" id="opinions">
+                <div class="section-title">
+                    <h2>All Opinions</h2>
+                </div>
+
+                <div class="news-container">
+                    <article class="news-card">
+                        <button class="bookmark-btn" data-id="bigtransfersopinion" aria-label="Save article"><i class="fa-regular fa-bookmark"></i></button>
+                        <img src="../images/mbappe.jpg" alt="Football opinion article on big-money transfers">
+
+                        <div class="news-content">
+                            <span class="category opinion">Opinion</span>
+                            <h3>Are Big Transfers Still Worth The Risk?</h3>
+                            <p>Clubs are spending more than ever, but smart recruitment may matter more than superstar names.</p>
+
+                            <div class="news-info">
+                                <span>June 29, 2026</span>
+                                <a href="bigtransfersopinion.html">Read More</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!-- PAYWALL OVERLAY MODAL -->
+        <div id="paywallModal" class="paywall-overlay">
+            <div class="paywall-card">
+                <span class="paywall-badge"><i class="fa-solid fa-lock"></i> Premium Subscription</span>
+                <h2>Unlock Full Access</h2>
+                <p class="subtitle">Subscribe now to read tactical breakdowns, expert opinion pieces, and exclusive transfer news.</p>
+
+                <form id="paywallForm">
+                    <div class="pricing-options">
+                        <!-- Monthly Plan Option -->
+                        <label class="pricing-plan active" id="planMonthly">
+                            <input type="radio" name="subscription_plan" value="monthly" checked>
+                            <span class="plan-title">Monthly</span>
+                            <div class="plan-price">$20 <span>/mo</span></div>
+                            <span class="plan-note">Billed monthly</span>
+                        </label>
+
+                        <!-- Yearly Plan Option -->
+                        <label class="pricing-plan" id="planYearly">
+                            <input type="radio" name="subscription_plan" value="yearly">
+                            <span class="plan-title">Yearly</span>
+                            <div class="plan-price">$240 <span>/yr</span></div>
+                            <span class="plan-note">Billed annually</span>
+                        </label>
+                    </div>
+
+                    <button type="button" class="paywall-btn" id="subscribeBtn">
+                        Subscribe for <span id="btnPrice">$20</span>
+                    </button>
+                </form>
+
+                <p class="paywall-footer">
+                    Already a subscriber? <a href="login.html">Log In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Football Analysis | Editorial reports, tactical breakdowns, transfer news, opinions, history, and predictions.</p>
+    </footer>
+
+    <!-- PAYWALL JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const planMonthly = document.getElementById("planMonthly");
+            const planYearly = document.getElementById("planYearly");
+            const btnPrice = document.getElementById("btnPrice");
+            const subscribeBtn = document.getElementById("subscribeBtn");
+            const paywallModal = document.getElementById("paywallModal");
+            const mainContent = document.getElementById("mainContent");
+
+            let selectedPlan = "monthly";
+
+            // Plan Selector Functionality
+            planMonthly.addEventListener("click", function () {
+                planMonthly.classList.add("active");
+                planYearly.classList.remove("active");
+                btnPrice.textContent = "$20";
+                selectedPlan = "monthly";
+            });
+
+            planYearly.addEventListener("click", function () {
+                planYearly.classList.add("active");
+                planMonthly.classList.remove("active");
+                btnPrice.textContent = "$240";
+                selectedPlan = "yearly";
+            });
+
+            // Subscription Action
+            subscribeBtn.addEventListener("click", function () {
+                if (selectedPlan === "monthly") {
+                    alert("Redirecting to checkout for $20/month plan...");
+                } else {
+                    alert("Redirecting to checkout for $240/year plan...");
+                }
+
+                // Demo logic: Unlock site after clicking subscribe
+                // localStorage.setItem("isSubscribed", "true");
+                // unlockContent();
+            });
+
+            // Unlock Content Function (call this after payment verification)
+            function unlockContent() {
+                if (paywallModal) paywallModal.style.display = "none";
+                if (mainContent) mainContent.classList.remove("paywall-blur-content");
+            }
+
+            // Example check for subscribed user session
+            if (localStorage.getItem("isSubscribed") === "true") {
+                unlockContent();
+            }
+        });
+    </script>
+    <script src="../js/index.js"></script>
+    <script src="../js/saved.js"></script>
+</body>
+</html>

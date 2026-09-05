@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Football Analysis</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <a href="../index.html" class="logo" aria-label="Football Analysis home">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li class="nav-dropdown"><a href="analysis.html">Analysis <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="news.html">News <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="opinions.html">Opinions <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="history.html">History <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li class="nav-dropdown"><a href="predictions.html">Predictions <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="icon-btn search-btn" type="button" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="icon-btn dark-mode-btn" type="button" aria-label="Toggle dark mode">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+                <button class="menu-btn" type="button" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="profile-dropdown">
+                    <button class="icon-btn profile-btn" type="button" aria-label="Profile">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </button>
+                    <div class="profile-menu">
+                        <div class="profile-menu-header">
+                            <i class="fa-regular fa-circle-user"></i>
+                            <div>
+                                <strong>Guest User</strong>
+                                <span>Football Analysis reader</span>
+                            </div>
+                        </div>
+                        <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                        <a href="signup.html"><i class="fa-solid fa-user-plus"></i> Create Account</a>
+                        <a href="saved.html"><i class="fa-regular fa-bookmark"></i> Saved Articles</a>
+                        <a href="writer-dashboard.html"><i class="fa-solid fa-pen-nib"></i> Writer Dashboard</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <aside class="mobile-menu">
+        <div class="mobile-menu-top">
+            <a href="../index.html" class="mobile-menu-logo">
+                <img src="../images/football page.PNG" alt="Football Analysis Logo">
+            </a>
+            <button class="close-menu" type="button" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="mobile-menu-links">
+            <a href="../index.html">Home</a>
+            <a href="analysis.html">Analysis</a>
+            <a href="news.html">News</a>
+            <a href="opinions.html">Opinions</a>
+            <a href="history.html">History</a>
+            <a href="predictions.html">Predictions</a>
+        </nav>
+    </aside>
+
+    <div class="search-overlay"></div>
+
+    <section class="search-panel">
+        <form class="search-form">
+            <input type="search" name="q" placeholder="Search news, analysis, history..." aria-label="Search">
+            <button type="submit" aria-label="Submit search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="close-search" type="button" aria-label="Close search">&times;</button>
+        </form>
+        <div class="search-results" aria-live="polite"></div>
+    </section>
+
+    <main class="auth-wrapper" style="max-width: 480px; margin: 40px auto; padding: 0 20px;">
+        <section class="auth-card" style="background: var(--bg-card, #ffffff); border: 1px solid var(--border-color, #e0e0e0); border-radius: 12px; padding: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <span class="category news" style="margin-bottom: 8px; display: inline-block;">Welcome Back</span>
+                <h1 style="font-size: 1.8rem; margin-top: 4px;">Sign In to Your Account</h1>
+                <p style="color: #666; font-size: 0.95rem; margin-top: 6px;">Access saved articles, personalized newsletters, and expert analysis.</p>
+            </div>
+
+            <form action="#" method="POST" onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 18px;">
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                    <label for="email" style="font-weight: 600; font-size: 0.9rem;">Email Address</label>
+                    <input type="email" id="email" placeholder="name@example.com" required style="padding: 12px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; font-size: 0.95rem;">
+                </div>
+
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <label for="password" style="font-weight: 600; font-size: 0.9rem;">Password</label>
+                        <a href="#" style="font-size: 0.85rem; color: #1a73e8; text-decoration: none;">Forgot password?</a>
+                    </div>
+                    <input type="password" id="password" placeholder="••••••••" required style="padding: 12px; border: 1px solid var(--border-color, #ccc); border-radius: 6px; font-size: 0.95rem;">
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 8px; margin: 4px 0;">
+                    <input type="checkbox" id="remember" style="width: 16px; height: 16px;">
+                    <label for="remember" style="font-size: 0.9rem; color: #555;">Remember me on this device</label>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; padding: 12px; border: none; cursor: pointer; text-align: center; font-size: 1rem; border-radius: 6px;">Sign In</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color, #eee); font-size: 0.9rem; color: #666;">
+                Don't have an account yet? <a href="signup.html" style="color: #1a73e8; font-weight: 600; text-decoration: none;">Create one here</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Football Analysis | Editorial reports, tactical breakdowns, transfer news, opinions, history, and predictions.</p>
+    </footer>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/saved.js"></script>
+</body>
+</html>
